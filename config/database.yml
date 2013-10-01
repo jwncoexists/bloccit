@@ -5,17 +5,21 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: bloccit_development
   encoding: unicode
-  host: localhost
+  database: bloccit_development
+  username: vagrant
+  template: template0
 
 test:
   adapter: postgresql
-  database: bloccit_test
   encoding: unicode
-  host: localhost
+  database: bloccit_test
+  username: vagrant
+  template: template0
 
 production:
   adapter: postgresql
-  database: bloccit_production
   encoding: unicode
+  database: bloccit_production
+  username: vagrant
+  template: template0
