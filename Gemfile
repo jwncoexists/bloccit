@@ -7,6 +7,7 @@ gem 'rails', '3.2.13'
 
 # use the PostgreSQL database for development and production
 gem 'pg'
+gem 'faker'
 
 
 # Gems used only for assets and not required
