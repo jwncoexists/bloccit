@@ -7,7 +7,6 @@ gem 'rails', '3.2.13'
 
 # use the PostgreSQL database for development and production
 gem 'pg'
-gem 'faker'
 
 
 # Gems used only for assets and not required
@@ -24,6 +23,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'faker'
+gem 'devise'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
