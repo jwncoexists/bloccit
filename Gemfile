@@ -27,6 +27,7 @@ gem 'faker'
 gem 'devise'
 gem 'cancan'
 gem 'newrelic_rpm'
+gem 'redcarpet'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
