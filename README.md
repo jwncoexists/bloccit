@@ -1,4 +1,4 @@
-# Bloccit
+# [jwn-bloccit](http://jwn-bloccit.herokuapp.com)
 
 A Reddit-style application for posting comments.
 This was developed as part of BLOC's Web Development apprenticeship (see more about [BLOC](http://bloc.io))
