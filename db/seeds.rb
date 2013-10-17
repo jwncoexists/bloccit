@@ -2,13 +2,13 @@ require 'faker'
 
 # create 15 topics
 topics = []
-15.times do
+100.times do
   topics << Topic.create(
     name: Faker::Lorem.words(rand(1..10)).join(" "), 
     description: Faker::Lorem.paragraph(rand(1..4))
   )
 end
-rand(4..10).times do
+rand(25..50).times do
   password = Faker::Lorem.characters(10)
   u = User.new(
     name: Faker::Name.name, 
@@ -18,12 +18,13 @@ rand(4..10).times do
   u.skip_confirmation!
   u.save
 
-  rand(5..12).times do
+  rand(15..30).times do
     topic = topics.first #get the first topic
     p = u.posts.create(
       title: Faker::Lorem.words(rand(1..10)).join(" "), 
       body: Faker::Lorem.paragraphs(rand(1..4)).join("\n"))
     # set the created_at to a time within the past year
+    p.topic = topic
     p.update_attribute(:created_at, Time.now - rand(600..31536000))
 
     topics.rotate!
@@ -63,5 +64,6 @@ u.save
 
 puts "Seed finished"
 puts "#{User.count} users created"
+puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
