@@ -1,14 +1,16 @@
 require 'faker'
 
-# create 15 topics
+# create 20 topics
 topics = []
-100.times do
+20.times do
   topics << Topic.create(
     name: Faker::Lorem.words(rand(1..10)).join(" "), 
     description: Faker::Lorem.paragraph(rand(1..4))
   )
 end
-rand(25..50).times do
+
+# create users, posts & comments
+rand(5..10).times do
   password = Faker::Lorem.characters(10)
   u = User.new(
     name: Faker::Name.name, 
@@ -18,21 +20,28 @@ rand(25..50).times do
   u.skip_confirmation!
   u.save
 
-  rand(15..30).times do
-    topic = topics.first #get the first topic
-    p = u.posts.create(
-      title: Faker::Lorem.words(rand(1..10)).join(" "), 
-      body: Faker::Lorem.paragraphs(rand(1..4)).join("\n"))
-    # set the created_at to a time within the past year
-    p.topic = topic
-    p.update_attribute(:created_at, Time.now - rand(600..31536000))
+  # now have this user make some posts & comments on random topics
+  rand(10..20).times do
+    topic = topics.first
+    rand(5..10).times do
+      p = u.posts.create(
+        topic: topic,
+        title: Faker::Lorem.words(rand(1..10)).join(" "), 
+        body: Faker::Lorem.paragraphs(rand(1..4)).join("\n"))
 
-    topics.rotate!
+      # set the created_at to a time within the past year
+      p.update_attribute(:created_at, Time.now - rand(600..31536000))
+      p.save
 
-    rand(3..7).times do
-      p.comments.create(
-        body: Faker::Lorem.paragraphs(rand(1..2)).join("\n"))
+      # now create some comments
+      rand(10..20).times do
+        c = u.comments.create(
+          body: Faker::Lorem.paragraphs(rand(1..2)).join("\n"), post:p)
+        c.update_attribute(:created_at, Time.now - rand(600..31536000))
+        c.save
+      end
     end
+    topics.rotate!
   end
 end
 

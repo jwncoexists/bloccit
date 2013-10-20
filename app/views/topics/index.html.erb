@@ -6,10 +6,10 @@
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <%= link_to topic.name, topic %>
+            <%= link_to topic.name+ " [#{topic.posts.count} Posts]", topic %>
           </h4>
           <small>
-            <%= markdown topic.description %>
+            <%= markdown topic.description %> 
           </small>
         </div>
       </div>
