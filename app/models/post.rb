@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   attr_accessible :body, :title, :image, :topic
-  has_many :comments,  dependent: :destroy
+  has_many :comments
   belongs_to :user
   belongs_to :topic
   mount_uploader :image, ImageUploader

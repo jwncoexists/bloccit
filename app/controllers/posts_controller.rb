@@ -25,8 +25,7 @@ class PostsController < ApplicationController
 
     authorize! :create, @post, message: "You need to be signed up to do that."
     if @post.save
-      flash[:notice] = "Post was saved."
-      redirect_to [@topic, @post]
+      redirect_to [@topic, @post], notice: "Post was saved."
     else
       flash[:error] = "There was an error saving the post. Please try again."
       render :new
@@ -38,8 +37,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     authorize! :update, @post, message: "You need to own the post to edit it."
     if @post.update_attributes(params[:post])
-      flash[:notice] = "Post was updated."
-      redirect_to [@topic, @post]
+      redirect_to [@topic, @post], notice: "Post was updated."
     else
       flash[:error] = "There was an error saving the post. Please try again."
       render :new
@@ -53,8 +51,8 @@ class PostsController < ApplicationController
     title = @post.title
     authorize! :destroy, @post, message: "You need to own the post to delete it."
     if @post.destroy
-      flash[:notice] = "\"#{title}\" was deleted successfully."
-      redirect_to @topic
+      # flash[:notice] = "\"#{title}\" was deleted successfully."
+      redirect_to @topic, notice: "\"#{title}\" was deleted successfully."
     else
       flash[:error] = "There was an error deleting the post."
       render :show

@@ -6,7 +6,7 @@
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <%= link_to topic.name+ " [#{topic.posts.count} Posts]", topic %>
+            <%= link_to "#{topic.name} - " + pluralize(topic.posts.count, "Post"), topic %>
           </h4>
           <small>
             <%= markdown topic.description %> 

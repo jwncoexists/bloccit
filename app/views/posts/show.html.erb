@@ -16,7 +16,7 @@
     </small>    
     <p><%= image_tag(@post.image_url) if @post.image? %></p>
     <p class="muted"><%= markdown @post.body %></p>
-    <h4><%= @comments.count %> Comments: </h4>  
+    <h4><%= pluralize(@comments.count, "Comment") %> </h4>  
   </div>
   <div class="span4">
     <% if can? :create, Comment %>

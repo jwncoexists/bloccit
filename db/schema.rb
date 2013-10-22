@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131020073721) do
+ActiveRecord::Schema.define(:version => 20131022043112) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -70,6 +70,13 @@ ActiveRecord::Schema.define(:version => 20131020073721) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "comments", "posts", name: "comments_post_id_fk", dependent: :delete
+  add_foreign_key "comments", "users", name: "comments_user_id_fk"
+
+  add_foreign_key "posts", "topics", name: "posts_topic_id_fk", dependent: :delete
+  add_foreign_key "posts", "users", name: "posts_user_id_fk"
 
 end
