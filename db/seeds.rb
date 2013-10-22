@@ -2,7 +2,7 @@ require 'faker'
 
 # create 20 topics
 topics = []
-20.times do
+12.times do
   topics << Topic.create(
     name: Faker::Lorem.words(rand(1..10)).join(" "), 
     description: Faker::Lorem.paragraph(rand(1..4))
@@ -21,7 +21,7 @@ rand(5..10).times do
   u.save
 
   # now have this user make some posts & comments on random topics
-  rand(10..20).times do
+  rand(5..10).times do
     topic = topics.first
     rand(5..10).times do
       p = u.posts.create(
@@ -31,10 +31,11 @@ rand(5..10).times do
 
       # set the created_at to a time within the past year
       p.update_attribute(:created_at, Time.now - rand(600..31536000))
+      p.update_rank
       p.save
 
       # now create some comments
-      rand(10..20).times do
+      rand(5..10).times do
         c = u.comments.create(
           body: Faker::Lorem.paragraphs(rand(1..2)).join("\n"), post:p)
         c.update_attribute(:created_at, Time.now - rand(600..31536000))

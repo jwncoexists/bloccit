@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022043112) do
+ActiveRecord::Schema.define(:version => 20131022122412) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20131022043112) do
     t.integer  "user_id"
     t.integer  "topic_id"
     t.string   "image"
+    t.float    "rank"
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
@@ -73,10 +74,24 @@ ActiveRecord::Schema.define(:version => 20131022043112) do
   add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "votes", :force => true do |t|
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "votes", ["post_id"], :name => "index_votes_on_post_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
+
   add_foreign_key "comments", "posts", name: "comments_post_id_fk", dependent: :delete
   add_foreign_key "comments", "users", name: "comments_user_id_fk"
 
   add_foreign_key "posts", "topics", name: "posts_topic_id_fk", dependent: :delete
   add_foreign_key "posts", "users", name: "posts_user_id_fk"
+
+  add_foreign_key "votes", "posts", name: "votes_post_id_fk", dependent: :delete
+  add_foreign_key "votes", "users", name: "votes_user_id_fk", dependent: :delete
 
 end
