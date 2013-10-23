@@ -4,12 +4,13 @@
   <div class="span4">
     <p>Guidelines for new comments:</p>
     <ul>
+      <li>Comments must be a minimum of 5 characters long.</li>
       <li>Make sure content is appropriate.</li>
       <li>Inappropriate comments will be removed.</li>
     </ul>
   </div>
   <div class="span8">
-    <%= render partial: 'comment', locals: { topic: @topic, post: @post, comment: @comment } %>
+    <%= render partial: 'form', locals: { topic: @topic, post: @post, comment: @comment } %>
   </div>
 </div>
 

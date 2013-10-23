@@ -1,25 +1,17 @@
-<%= form_for [topic, post, comment], html: { class: 'form-horizontal' } do |f| %>
-  <% if comment.errors.any? %>
-    <div class="alert alert-block">
-      <h4>There are <%= pluralize(comment.errors.count, "error") %>.</h4>
-      <ul>
-        <% comment.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+<%= content_tag :div, class: 'media', id: "comment-#{comment.id}" do %>
+  <%= link_to '#', class: 'pull-left' do %>
+    <%= image_tag(comment.user.avatar.small.url) if comment.user.avatar? %>
   <% end %>
-  
-  <%= control_group_tag(comment.errors[:body]) do %>
-    <%= f.label :body, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :body, rows: 8 %>
-    </div>
-  <% end %>
-
-  <div class="control-group">
-    <div class="controls">
-      <%= f.submit "Save", class: 'btn' %>
-    </div>
+  <div class="media-body">
+    <small>
+      <b><em><%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %> ago</b></em>
+      <% if can? :manage, comment %>
+        | <%= link_to "Edit", edit_topic_post_comment_path(@topic,@post,comment) %>
+      <% end %>
+      <% if can? :destroy, comment %>
+        | <%= link_to "Delete", [@topic, @post, comment], method: :delete %>
+      <% end %>
+    </small>
+    <p><%= comment.body %></p>
   </div>
 <% end %>

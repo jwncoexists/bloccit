@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   attr_accessible :body, :title, :image, :topic
   has_many :comments
   has_many :votes
+  has_many :favorites
   belongs_to :user
   belongs_to :topic
   after_create :create_vote
