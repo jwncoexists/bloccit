@@ -25,15 +25,15 @@ def create
 
   def edit
     @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
+    @post = @topic.posts.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
     authorize! :edit, @comment, message: "You need be an administrator or own the comment to edit it."
   end
 
   def update
     @topic = Topic.find(params[:topic_id])
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
+    @post = @topic.posts.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
     authorize! :update, @post, message: "You need to own the comment to edit it."
     if @comment.update_attributes(params[:comment])
       flash[:notice] = "Comment was updated."
@@ -47,7 +47,6 @@ def create
   def destroy
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:post_id])
-
     @comment = @post.comments.find(params[:id])
 
     authorize! :destroy, @comment, message: "You need to own the comment to delete it."
