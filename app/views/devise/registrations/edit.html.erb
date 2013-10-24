@@ -24,39 +24,50 @@
       </div>
     </div>
   <% end %>
-
-  <div class="control-group">
-    <%= f.label :password, class: 'control-label' %>
-    <div class="controls">
-      <%= f.password_field :password %>
-      <i>(leave blank if you don't want to change it)</i>
+  <% unless current_user.provider? %>
+    <div class="control-group">
+      <%= f.label :password, class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password %>
+        <i>(leave blank if you don't want to change it)</i>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :password_confirmation, class: 'control-label' %>
-    <div class="controls">
-      <%= f.password_field :password_confirmation %>
+    <div class="control-group">
+      <%= f.label :password_confirmation, class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password_confirmation %>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :current_password, class: 'control-label'  %>
-    <div class="controls"> 
-      <%= f.password_field :current_password %>
-      <i>(we need your current password to confirm your changes)</i>
+  <% end %>
+  <% if current_user.avatar? %>
+    <div class="control-group">
+      <p class="control-label">Current avatar</p>
+      <div class="controls">
+        <%= image_tag(current_user.avatar.profile.url) %>
+      </div>
     </div>
-  </div> 
+  <% end %>
   <div class="control-group">
     <%= image_tag(current_user.avatar.small.url) if current_user.avatar? %>
     <%= f.label :avatar, class: 'control-label' %>
     <div class="controls"> 
       <%= f.file_field :avatar %>
     </div>
-  </div>     
+  </div> 
   <div class="control-group">
+    <%= f.label :email_favorites, class: 'control-label' %>
+    <div class="controls"> 
+      <%= f.check_box :email_favorites %>
+    </div>
+  </div> 
+   <div class="control-group">
     <div class="controls">
+      <%= f.label :email_favorites, class: 'checkbox' do %>
+        <%= f.check_box :email_favorites %> Be notified for new comments on your favorites
+      <% end %>
       <%= f.submit "Update", class: 'btn' %>
     </div>
-  </div>  
+  </div>
 <% end %>
 
 <h3>Cancel my account</h3>
