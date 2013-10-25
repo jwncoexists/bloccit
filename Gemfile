@@ -8,6 +8,11 @@ gem 'rails', '3.2.13'
 # use the PostgreSQL database for development and production
 gem 'pg'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails', '~> 4.0'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
