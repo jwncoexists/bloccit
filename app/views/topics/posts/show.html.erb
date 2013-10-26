@@ -14,14 +14,10 @@
     
     <hr/>
 
-    <h2><%= @comments.count %> Comments</h2>
+    <h2 class='js-comments-count'><%= pluralize(@comments.count, 'Comments') %></h2>
     <%= render partial: 'comments/comment', collection: @comments, locals: { topic: @topic, post: @post } %>
     
-
-
-  
   </div>
-  
   
   <div class="span4">
     <% if can? :edit, @post %>
