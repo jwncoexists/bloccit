@@ -11,7 +11,6 @@
   <% end %>
   
   <%= control_group_tag(comment.errors[:body]) do %>
-    <%= f.label :body, class: 'control-label' %>
     <div class="controls">
       <%= f.text_area :body, rows: 8 %>
     </div>
@@ -19,7 +18,7 @@
 
   <div class="control-group">
     <div class="controls">
-      <%= f.submit "Save", class: 'btn' %>
+      <%= f.submit "Add Comment", class: 'btn' %>
     </div>
   </div>
 <% end %>
