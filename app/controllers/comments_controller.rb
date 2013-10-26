@@ -27,27 +27,6 @@ def create
     end
   end
 
-  def edit
-    @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
-    authorize! :edit, @comment, message: "You need be an administrator or own the comment to edit it."
-  end
-
-  def update
-    @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
-    authorize! :update, @post, message: "You need to own the comment to edit it."
-    if @comment.update_attributes(params[:comment])
-      flash[:notice] = "Comment was updated."
-      redirect_to [@topic, @post]
-    else
-      flash[:error] = "There was an error saving the comment. Please try again."
-      render :new
-    end
-  end
-
   def destroy
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:post_id])
